@@ -1,0 +1,33 @@
+pipeline{
+    agent {label 'java'}
+    environment{
+         PATH= "/opt/apache-maven-3.9.9/bin/:$PATH"
+     }
+     
+      stages{
+          stage('checkout'){
+              steps{
+                 git branch: 'main', url: 'https://github.com/BinduPrivate/java-example.git'
+              }
+          }
+       
+        stage(‘Test’){
+        steps{
+                 echo ‘running unit and integration test’
+              }
+          }
+
+          stage('Build'){
+              steps{
+                 sh 'mvn clean package'
+              }
+          }
+          stage('Deploy'){
+              steps{
+                    sh 'sudo rsync -av /home/ubuntu/jenkins/workspace/artifact-deployment/target/works-with-heroku-1.0.war  /opt/apache-tomcat-9.0.96/webapps'
+                    echo 'deployed successfully'
+          }
+          }
+      
+}
+}
