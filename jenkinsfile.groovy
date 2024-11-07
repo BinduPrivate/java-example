@@ -28,7 +28,7 @@ error 'Build failed!'
 stage('Deploy') {
 try {
 
-sh 'sudo rsync -av /home/ubuntu/jenkins/workspace/artifact-deployment/target/works-with-heroku-1.0.war  /opt/apache-tomcat-9.0.96/webapps'
+sh 'sudo rsync -av /home/ubuntu/jenkins/workspace/scripted-pipeline/target/works-with-heroku-1.0.war  /opt/apache-tomcat-9.0.96/webapps'
 echo 'Successfully deployed'
 } catch (Exception e) {
 error 'Deployment failed!'
