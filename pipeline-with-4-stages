@@ -29,15 +29,15 @@ pipeline{
 		}
 	 steps{
 	       git branch: 'main', url: 'https://github.com/BinduPrivate/java-example.git'
-		   echo 'Hello!!this is user: $STRING'
-		   echo 'checking from the environment: $CHOICE'
-		   echo 'my boolean value is:$BOOLEAN'
+		   echo "Hello!!this is user: '$STRING'"
+		   echo "checking from the environment: '$CHOICE'"
+		   echo "my boolean value is:'$BOOLEAN'"
 	      }
 	}
 	stage('Test'){
 	  agent {label 'java'}
 	 steps{
-	       echo 'Running job ${env.JOB_NAME} on build_id ${env.BUILD_ID} on machine ${env.JENKINS_URL} and build triggered by ${env.USER}'
+	       echo "Running job '${env.JOB_NAME}' on build_id '${env.BUILD_ID}' on machine '${env.JENKINS_URL}' and build triggered by '${env.USER}'"
 	      }
 	}
 	stage('Build'){
@@ -48,7 +48,7 @@ pipeline{
 		}
 	 steps{
 	      echo 'bulding artifacts'
-		  echo 'my aws access key is:: $AWS_ACCESS_KEY'
+		  echo "my aws access key is:: '$AWS_ACCESS_KEY'"
 		  
 	      }
 	}
@@ -59,13 +59,14 @@ pipeline{
 		 }
 	 steps{
 	        echo 'deploying artifacts to environment'
-			echo 'my github username and password is :: $GITHUB_CRED'
+			echo "my github username and password is :: '$GITHUB_CRED'"
 	      }
 	}
    }
    post {
   always {
-         mail body: '''Build Successful the Job: ${env.JOB_NAME} build number Build #: ${env.BUILD_NUMBER}\ncheck the details by clicking the link Job URL: ${env.BUILD_URL}''', subject: 'pipeline success', 
+         mail body: "Build Successful the Job: '${env.JOB_NAME}' build number Build #: '${env.BUILD_NUMBER}'\ncheck the details by clicking the link Job URL: '${env.BUILD_URL}'"
+		 subject: 'pipeline success'
          to: 'justmailtobin@gmail.com'
   }
 }
