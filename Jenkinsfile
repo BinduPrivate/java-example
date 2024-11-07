@@ -63,5 +63,20 @@ pipeline{
 	      }
 	}
    }
+	post {
+        success {
+            script {
+                emailext(
+                    subject: "Build Success: ${env.JOB_NAME} #${env.BUILD_NUMBER}",
+                    body: """Build Successful
+                          Job: ${env.JOB_NAME}
+                             Build #: ${env.BUILD_NUMBER}
+                             Job URL: "${env.BUILD_URL}""",
+                    to: 'justmailtobin@gmail.com'
+                )
+            }
+        }
+
    
+}
 }
