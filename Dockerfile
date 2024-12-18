@@ -5,6 +5,6 @@ RUN git clone https://github.com/BinduPrivate/java-example.git
 WORKDIR /app/java-example
 RUN mvn clean package
 EXPOSE 8080
-CMD ["java", "-war", "works-with-heroku"]
+CMD ["java", "-war", "target/works-with-heroku-1.0.war"]
 
 
