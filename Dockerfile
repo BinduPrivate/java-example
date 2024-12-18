@@ -5,7 +5,7 @@ RUN git clone https://github.com/BinduPrivate/java-example.git
 WORKDIR /app/java-example
 RUN mvn clean package
 EXPOSE 8080
-CMD ["java", "-war", "target/maven-project"]
+CMD ["java", "-war", "works.buddy.samples"]
 
 
 FROM maven:amazoncorretto as build
