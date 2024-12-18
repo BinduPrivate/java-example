@@ -5,13 +5,6 @@ RUN git clone https://github.com/BinduPrivate/java-example.git
 WORKDIR /app/java-example
 RUN mvn clean package
 EXPOSE 8080
-CMD ["java", "-war", "works.buddy.samples"]
+CMD ["java", "-war", "works-with-heroku"]
 
 
-FROM maven:amazoncorretto as build
-WORKDIR /javaapp
-COPY . .
-RUN mvn clean install
-
-FROM adhig93/tomcat-conf
-COPY --from=build /javaapp/target/*.war /usr/local/tomcat/webapps/
