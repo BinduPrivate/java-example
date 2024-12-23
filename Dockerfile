@@ -1,18 +1,15 @@
-FROM ubuntu
-RUN apt-get update && \
-    apt-get install -y \
-    openjdk-11-jdk 
+FROM alpine:latest AS checkout
+RUN apk add git
+RUN git clone https://github.com/Devops-Sept-Batch-2024/java-example.git
+WORKDIR /java-example
 
-RUN git clone https://github.com/BinduPrivate/java-example.git /app
+FROM maven:3.8.6-amazoncorretto-11 AS build
 WORKDIR /app
+COPY --from=checkout /java-example/pom.xml ./
 RUN mvn clean package
-ADD https://downloads.apache.org/tomcat/tomcat-9/v9.0.98/bin/apache-tomcat-9.0.98.tar.gz /opt/
-RUN mv /opt/apache-tomcat-9.0.98 /opt/tomcat
-COPY /app/target/works-with-heroku-1.0.war /opt/tomcat/webapps/ROOT.war
+
+FROM artisantek/tomcat:1
+COPY --from=build /app/target/*.war /usr/local/tomcat/webapps/
 EXPOSE 8080
-CMD ["/opt/tomcat/bin/catalina.sh", "run"]
-
-
-
-
+CMD ["catalina.sh","run"]
 
