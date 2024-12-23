@@ -1,6 +1,6 @@
 FROM alpine:latest AS checkout
 RUN apk add git
-RUN git clone https://github.com/Devops-Sept-Batch-2024/java-example.git
+RUN git clone https://github.com/BinduPrivate/java-example.git
 WORKDIR /java-example
 
 FROM maven:3.8.6-amazoncorretto-11 AS build
