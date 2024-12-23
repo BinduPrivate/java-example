@@ -5,7 +5,7 @@ WORKDIR /java-example
 
 FROM maven:3.8.6-amazoncorretto-11 AS build
 WORKDIR /app
-COPY --from=checkout /java-example/pom.xml ./
+COPY --from=checkout /java-example
 RUN mvn clean package
 
 FROM artisantek/tomcat:1
